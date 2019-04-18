@@ -5,7 +5,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
+import javax.persistence.*;
+import java.util.List;
 /**
  * Created by LaunchCode
  */
@@ -23,6 +24,12 @@ public class Cheese {
     @NotNull
     @Size(min=1, message = "Description must not be empty")
     private String description;
+
+    @ManyToOne
+    private Category category;
+
+    @ManyToMany(mappedBy = "cheeses")
+    private List<Menu> menus;
 
     private CheeseType type;
 
@@ -59,5 +66,21 @@ public class Cheese {
 
     public void setType(CheeseType type) {
         this.type = type;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public List<Menu> getMenus() {
+        return menus;
+    }
+
+    public void setMenus(List<Menu> menus) {
+        this.menus = menus;
     }
 }
